@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaCopier", "MediaCopier\MediaCopier.csproj", "{D35FB8CB-CD98-4130-9E85-8455A7B8D3CF}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CopierInstaller", "CopierInstaller\CopierInstaller.vdproj", "{A154CA42-26D7-4546-815F-9A98CD349297}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D35FB8CB-CD98-4130-9E85-8455A7B8D3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35FB8CB-CD98-4130-9E85-8455A7B8D3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35FB8CB-CD98-4130-9E85-8455A7B8D3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35FB8CB-CD98-4130-9E85-8455A7B8D3CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A154CA42-26D7-4546-815F-9A98CD349297}.Debug|Any CPU.ActiveCfg = Debug
+		{A154CA42-26D7-4546-815F-9A98CD349297}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4B71034-1C8A-41B8-BDC7-CD495014BF26}
+	EndGlobalSection
+EndGlobal
