@@ -25,38 +25,31 @@ namespace MediaCopier
         {
             toPath.Text = GetPathFromDialog();
         }
-        private string GetPathFromDialog()
-        {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    return fbd.SelectedPath;
-                }
-                else
-                {
-                    throw new Exception("Error Reading The Path");
-                }
-            }
-        }
 
         private async void copy_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(fromPath.Text) || string.IsNullOrEmpty(toPath.Text))
+            if (CheckPathes())
             {
                 MessageBox.Show("Select From And To Pathes");
                 return;
             }
-            copy.Enabled = false;
-            fromPath.Enabled = false;
-            toPath.Enabled = false;
-            fromButton.Enabled = false;
-            toButton.Enabled = false;
+            DisableFields();
             var from = new DirectoryInfo(fromPath.Text);
-            var filesToCopy = from.GetFiles();
+            var to = new DirectoryInfo(toPath.Text);
             var count = 0;
+            if (!to.Exists)
+            {
+                MessageBox.Show("Destination Path Dosen't Exist");
+                EnableFields();
+                return;
+            }
+            if (!from.Exists)
+            {
+                MessageBox.Show("Source Path Dosen't Exist");
+                EnableFields();
+                return;
+            }
+            var filesToCopy = from.GetFiles();
             foreach (var file in filesToCopy)
             {
                 var isExist = File.Exists($"{toPath.Text}\\{file.Name}");
@@ -73,17 +66,14 @@ namespace MediaCopier
                 }
                 logs.ScrollToCaret();
             }
-            copy.Enabled = true;
-            fromPath.Enabled = true;
-            toPath.Enabled = true;
-            fromButton.Enabled = true;
-            toButton.Enabled = true;
+            EnableFields();
         }
 
         private void clean_Click(object sender, EventArgs e)
         {
             logs.Text = "";
         }
+
         public async Task CopyFileAsync(string sourcePath, string destinationPath)
         {
             using (Stream source = File.Open(sourcePath, FileMode.Open))
@@ -93,6 +83,46 @@ namespace MediaCopier
                     await source.CopyToAsync(destination);
                 }
             }
+        }
+
+        private string GetPathFromDialog()
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    return fbd.SelectedPath;
+                }
+                else
+                {
+                    return "Please Select A Folder";
+                }
+            }
+        }
+
+        private bool CheckPathes()
+        {
+            return string.IsNullOrEmpty(fromPath.Text) || string.IsNullOrEmpty(toPath.Text);
+        }
+
+        private void DisableFields()
+        {
+            copy.Enabled = false;
+            fromPath.Enabled = false;
+            toPath.Enabled = false;
+            fromButton.Enabled = false;
+            toButton.Enabled = false;
+        }
+
+        private void EnableFields()
+        {
+            copy.Enabled = true;
+            fromPath.Enabled = true;
+            toPath.Enabled = true;
+            fromButton.Enabled = true;
+            toButton.Enabled = true;
         }
     }
 }
